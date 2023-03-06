@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:firebase_chat_clone/common/entities/entities.dart';
 import 'package:firebase_chat_clone/common/entities/user.dart';
 import 'package:firebase_chat_clone/common/routes/names.dart';

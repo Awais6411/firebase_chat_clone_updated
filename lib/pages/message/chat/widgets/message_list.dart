@@ -1,3 +1,5 @@
+import 'package:firebase_chat_clone/common/utils/date.dart';
+import 'package:firebase_chat_clone/common/values/colors.dart';
 import 'package:firebase_chat_clone/pages/message/controller.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -18,7 +20,26 @@ class MessageList extends GetView<MessageController> {
     return Container(
       padding: EdgeInsets.only(top: 10.w, left: 15.w, right: 15.w),
       child: InkWell(
-        onTap: () {},
+        onTap: () {
+          var to_uid = "";
+          var to_name = "";
+          var to_avatar = "";
+          if (item.data().from_uid == controller.token) {
+            to_uid = item.data().to_uid ?? "";
+            to_name = item.data().to_name ?? "";
+            to_avatar = item.data().to_avatar ?? "";
+          } else {
+            to_uid = item.data().from_uid ?? "";
+            to_name = item.data().from_name ?? "";
+            to_avatar = item.data().from_avatar ?? "";
+          }
+          Get.toNamed("/chat", parameters: {
+            "doc_id": item.id,
+            "to_uid": to_uid,
+            "to_name": to_name,
+            "to_avatar": to_avatar
+          });
+        },
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -55,7 +76,57 @@ class MessageList extends GetView<MessageController> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   SizedBox(
-                    width: 200.w,
+                    width: 180.w,
+                    height: 48.w,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          item.data().from_uid == controller.token
+                              ? item.data().to_name!
+                              : item.data().from_name!,
+                          overflow: TextOverflow.clip,
+                          maxLines: 1,
+                          style: TextStyle(
+                              fontFamily: "Avenir",
+                              fontWeight: FontWeight.bold,
+                              color: AppColors.thirdElement,
+                              fontSize: 16.sp),
+                        ),
+                        Text(
+                          item.data().last_msg ?? "",
+                          overflow: TextOverflow.clip,
+                          maxLines: 1,
+                          style: TextStyle(
+                              fontFamily: "Avenir",
+                              fontWeight: FontWeight.normal,
+                              color: AppColors.thirdElement,
+                              fontSize: 14.sp),
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(
+                    width: 60.w,
+                    height: 54.w,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        Text(
+                          duTimeLineFormat(
+                              (item.data().last_time as Timestamp).toDate()),
+                          overflow: TextOverflow.clip,
+                          maxLines: 1,
+                          style: TextStyle(
+                              fontFamily: "Avenir",
+                              fontWeight: FontWeight.normal,
+                              color: AppColors.thirdElementText,
+                              fontSize: 12.sp),
+                        ),
+                      ],
+                    ),
                   )
                 ],
               ),
