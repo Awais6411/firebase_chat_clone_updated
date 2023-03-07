@@ -1,5 +1,6 @@
 import 'package:firebase_chat_clone/pages/contact/controller.dart';
 import 'package:firebase_chat_clone/pages/message/controller.dart';
+import 'package:firebase_chat_clone/pages/profile/index.dart';
 import 'package:firebase_chat_clone/pages/sign_in/index.dart';
 import 'package:firebase_chat_clone/pages/welcome/controller.dart';
 import 'package:get/get.dart';
@@ -12,5 +13,6 @@ class ApplicationBinding implements Bindings {
     Get.lazyPut<ApplicationController>(() => ApplicationController());
     Get.lazyPut<ContactController>(() => ContactController());
     Get.lazyPut<MessageController>(() => MessageController());
+    Get.lazyPut<ProfileController>(() => ProfileController());
   }
 }

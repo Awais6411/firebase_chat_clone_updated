@@ -4,6 +4,7 @@ import 'package:firebase_chat_clone/common/widgets/button.dart';
 import 'package:firebase_chat_clone/pages/application/controller.dart';
 import 'package:firebase_chat_clone/pages/contact/index.dart';
 import 'package:firebase_chat_clone/pages/message/view.dart';
+import 'package:firebase_chat_clone/pages/profile/index.dart';
 import 'package:firebase_chat_clone/pages/sign_in/index.dart';
 import 'package:firebase_chat_clone/pages/welcome/controller.dart';
 import 'package:flutter/cupertino.dart';
@@ -22,13 +23,7 @@ class ApplicationPage extends GetView<ApplicationController> {
       physics: NeverScrollableScrollPhysics(),
       controller: controller.pageController,
       onPageChanged: controller.handlePageChanged,
-      children: [
-        MessagePage(),
-        ContactPage(),
-        Container(
-          child: Text("profile"),
-        ),
-      ],
+      children: const [MessagePage(), ContactPage(), ProfilePage()],
     );
   }
 

@@ -1,9 +1,11 @@
+import 'package:firebase_chat_clone/pages/profile/index.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 
 import '../../pages/message/chat/index.dart';
 import '../../pages/contact/index.dart';
+import '../../pages/message/photoview/index.dart';
 import '../../pages/sign_in/index.dart';
 import '../../pages/welcome/index.dart';
 import '../../pages/application/index.dart';
@@ -50,13 +52,18 @@ class AppPages {
         binding: ContactBinding()),
 /*    //消息
     GetPage(name: AppRoutes.Message, page: () => MessagePage(), binding: MessageBinding()),
-    //我的
-    GetPage(name: AppRoutes.Me, page: () => MePage(), binding: MeBinding()),
-    //聊天详情
     */
     GetPage(
+        name: AppRoutes.Me,
+        page: () => ProfilePage(),
+        binding: ProfileBinding()),
+
+    GetPage(
         name: AppRoutes.Chat, page: () => ChatPage(), binding: ChatBinding()),
-/*
-    GetPage(name: AppRoutes.Photoimgview, page: () => PhotoImgViewPage(), binding: PhotoImgViewBinding()),*/
+
+    GetPage(
+        name: AppRoutes.Photoimgview,
+        page: () => PhotoImageView(),
+        binding: PhotoImageViewBinding()),
   ];
 }
