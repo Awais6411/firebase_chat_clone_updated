@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:firebase_chat_clone/common/utils/date.dart';
 import 'package:firebase_chat_clone/common/values/colors.dart';
 import 'package:firebase_chat_clone/pages/message/controller.dart';
@@ -63,6 +65,8 @@ class MessageList extends GetView<MessageController> {
                   ),
                   errorWidget: (context, url, error) => const Image(
                       image: AssetImage("assets/images/feature-1.png")),
+
+
                 ),
               ),
             ),
@@ -95,7 +99,7 @@ class MessageList extends GetView<MessageController> {
                               fontSize: 16.sp),
                         ),
                         Text(
-                          item.data().last_msg ?? "",
+                          item.data().last_msg ?? "awais",
                           overflow: TextOverflow.clip,
                           maxLines: 1,
                           style: TextStyle(
@@ -153,6 +157,8 @@ class MessageList extends GetView<MessageController> {
                 sliver: SliverList(
                     delegate: SliverChildBuilderDelegate((context, index) {
                   var item = controller.state.msgList[index];
+                 return messageListItem(item);
+                  //print(item);
                 }, childCount: controller.state.msgList.length)),
               )
             ],

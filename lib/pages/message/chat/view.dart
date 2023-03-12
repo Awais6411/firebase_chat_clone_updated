@@ -15,7 +15,8 @@ import 'package:dots_indicator/dots_indicator.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
 class ChatPage extends GetView<ChatController> {
-  const ChatPage({super.key});
+   ChatPage({super.key});
+
   AppBar _buildAppBar() {
     return AppBar(
       backgroundColor: Colors.transparent,
@@ -64,6 +65,8 @@ class ChatPage extends GetView<ChatController> {
               padding:
                   EdgeInsets.only(top: 0.w, bottom: 0.w, left: 0.w, right: 0.w),
               child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SizedBox(
                     width: 180.w,
@@ -81,7 +84,7 @@ class ChatPage extends GetView<ChatController> {
                             style: TextStyle(
                                 fontFamily: "Aviner",
                                 fontWeight: FontWeight.bold,
-                                color: AppColors.primaryBackground,
+                                color: Colors.black.withOpacity(0.5),
                                 fontSize: 16.sp),
                           ),
                           Text(
@@ -132,7 +135,7 @@ class ChatPage extends GetView<ChatController> {
       },
     );
   }
-
+  var imagePicked=false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -169,7 +172,10 @@ class ChatPage extends GetView<ChatController> {
                     width: 30.h,
                     margin: EdgeInsets.only(left: 5.w),
                     child: GestureDetector(
-                      onTap: () {},
+                      onTap: () {
+                        imagePicked=true;
+                        _showPicker(context);
+                      },
                       child: Icon(
                         Icons.photo_outlined,
                         size: 35.w,
@@ -183,7 +189,9 @@ class ChatPage extends GetView<ChatController> {
                     height: 35.h,
                     child: ElevatedButton(
                         onPressed: () {
+                         if(controller.textController.text.isNotEmpty){
                           controller.sendMessage();
+                         }
                         },
                         child: Text("Send")),
                   )

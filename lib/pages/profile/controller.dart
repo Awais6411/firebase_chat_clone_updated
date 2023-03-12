@@ -48,8 +48,9 @@ class ProfileController extends GetxController {
       {"name": "About", "icon": "assets/icons/6.png", "route": "/about"},
       {"name": "Logout", "icon": "assets/icons/7.png", "route": "/logout"}
     ];
-    MeListItem result = MeListItem();
+
     for (int i = 0; i < MyList.length; i++) {
+      MeListItem result = MeListItem();
       result.icon = MyList[i]["icon"];
       result.name = MyList[i]["name"];
       result.route = MyList[i]["route"];

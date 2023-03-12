@@ -1,5 +1,3 @@
-import 'dart:html';
-
 import 'package:firebase_chat_clone/common/entities/entities.dart';
 import 'package:firebase_chat_clone/common/store/user.dart';
 import 'package:firebase_chat_clone/pages/message/state.dart';
@@ -36,7 +34,7 @@ class MessageController extends GetxController {
 
   void onLoading() {
     asyncLoadAllData().then((_) {
-      refreshController.refreshCompleted(resetFooterState: true);
+      refreshController.loadComplete();
     }).catchError((_) {
       refreshController.refreshFailed();
     });

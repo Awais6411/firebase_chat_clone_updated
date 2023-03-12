@@ -63,7 +63,9 @@ class SignInController extends GetxController {
               )
               .add(data);
           toastInfo(msg: "Login success");
+
           Get.offAndToNamed(AppRoutes.Application);
+          // Get.offAndToNamed(AppRoutes.Chat);
         }
       }
     } catch (e) {

@@ -77,16 +77,16 @@ class ContactController extends GetxController {
         });
       });
     } else {
-      if (from_messages.docs.isEmpty) {
+      if (from_messages.docs.isNotEmpty) {
         Get.toNamed("/chat", parameters: {
           "doc_id": from_messages.docs.first.id,
-          "to_uid": to_userdata.id ?? "",
-          "to_name": to_userdata.name ?? "",
-          "to_avatar": to_userdata.photourl ?? ""
+          "from_uid": to_userdata.id ?? "",
+          "from_name": to_userdata.name ?? "",
+          "from_avatar": to_userdata.photourl ?? ""
         });
       }
 
-      if (to_messages.docs.isEmpty) {
+      if (to_messages.docs.isNotEmpty) {
         Get.toNamed("/chat", parameters: {
           "doc_id": to_messages.docs.first.id,
           "to_uid": to_userdata.id ?? "",
