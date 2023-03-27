@@ -2,10 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
+import '../../common/routes/names.dart';
 import 'sign_up_screen.dart';
+import 'widgets/error_warning_message.dart';
 import 'widgets/my_rich_text.dart';
 import 'widgets/my_textfield.dart';
 import 'widgets/wrap_container.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class SignIn extends StatefulWidget {
   const SignIn({super.key});
@@ -17,7 +20,20 @@ class SignIn extends StatefulWidget {
 class _SignInState extends State<SignIn> {
   final TextEditingController _emaiController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  final ScrollController scrollController=ScrollController();
+  final ScrollController scrollController = ScrollController();
+  bool _dataValidation() {
+    if (_emaiController.text.trim().isEmpty) {
+      Message.taskError("Email empty", "Email can't be empty");
+      // Get.snackbar("Email", "Email can't be empty");
+      return false;
+    } else if (_passwordController.text.trim().isEmpty) {
+      Message.taskError("Password empty", "password can't be empty");
+      return false;
+    }
+
+    return true;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -77,8 +93,7 @@ class _SignInState extends State<SignIn> {
                                 fontSize: 15),
                           ),
                         ),
-                        MyTextField(
-                            controller: _emaiController, hint: "awais@gmail.com"),
+                        MyTextField(controller: _emaiController, hint: "Enter email"),
                         const SizedBox(
                           height: 10,
                         ),
@@ -96,25 +111,43 @@ class _SignInState extends State<SignIn> {
                         ),
                         MyTextField(
                           controller: _passwordController,
-                          hint: ".....",
+                          hint: "Enter password",
                           obs: true,
                         ),
                         const SizedBox(
                           height: 20,
                         ),
                         Center(
-                          child: Container(
-                            width: 300,
-                            padding: const EdgeInsets.all(15),
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                color: Colors.yellow),
-                            child: Center(
-                              child: Text(
-                                "Sign in",
-                                style: TextStyle(
-                                    color: Colors.black.withOpacity(0.8),
-                                    fontSize: 18),
+                          child: GestureDetector(
+                            onTap: () {
+                              if (_dataValidation()) {
+                                FirebaseAuth.instance
+                                    .signInWithEmailAndPassword(
+                                        email: _emaiController.text.trim(),
+                                        password:
+                                            _passwordController.text.trim())
+                                    .then((value) {
+                                  print("Loged in successfully");
+                                  Get.offAndToNamed(AppRoutes.Application);
+                                }).onError((error, stackTrace) {
+                                  Message.taskError(
+                                      "Error", "Invalid credentials");
+                                });
+                              }
+                            },
+                            child: Container(
+                              width: 300,
+                              padding: const EdgeInsets.all(15),
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  color: Colors.yellow),
+                              child: Center(
+                                child: Text(
+                                  "Sign in",
+                                  style: TextStyle(
+                                      color: Colors.black.withOpacity(0.8),
+                                      fontSize: 18),
+                                ),
                               ),
                             ),
                           ),

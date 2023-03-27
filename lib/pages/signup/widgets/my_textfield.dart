@@ -27,10 +27,11 @@ class MyTextField extends StatelessWidget {
         controller: controller,
         decoration: InputDecoration(
             hintText: hint,
+
             fillColor: Colors.black.withOpacity(0.2),
             focusColor: Colors.black.withOpacity(0.2),
             border: InputBorder.none,
-            hintStyle: TextStyle(color: Colors.black.withOpacity(0.8))),
+            hintStyle: TextStyle(color: Colors.black.withOpacity(0.4))),
       ),
     );
   }
