@@ -1,3 +1,5 @@
+import 'package:firebase_chat_clone/common/api/apis.dart';
+import 'package:firebase_chat_clone/common/entities/base.dart';
 import 'package:firebase_chat_clone/common/entities/entities.dart';
 import 'package:firebase_chat_clone/common/store/user.dart';
 import 'package:firebase_chat_clone/pages/message/state.dart';
@@ -22,6 +24,18 @@ class MessageController extends GetxController {
     // TODO: implement onReady
     super.onReady();
     getFcmToken();
+    firebaseMessageSetup();
+  }
+
+  firebaseMessageSetup() async {
+    String? fcmToken = await FirebaseMessaging.instance.getToken();
+    print("my device token is $fcmToken");
+    if (fcmToken != null) {
+      BindFcmTokenRequestEntity bindFcmTokenRequestEntity =
+          BindFcmTokenRequestEntity();
+      bindFcmTokenRequestEntity.fcmtoken = fcmToken;
+      await ChatAPI.bind_fcmtoken(params: bindFcmTokenRequestEntity);
+    }
   }
 
   void onRefresh() {

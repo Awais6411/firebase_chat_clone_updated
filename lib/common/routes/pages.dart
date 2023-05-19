@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import '../../pages/message/chat/index.dart';
 import '../../pages/contact/index.dart';
 import '../../pages/message/photoview/index.dart';
+import '../../pages/message/voicecall/index.dart';
 import '../../pages/sign_in/index.dart';
 import '../../pages/welcome/index.dart';
 import '../../pages/application/index.dart';
@@ -65,5 +66,9 @@ class AppPages {
         name: AppRoutes.Photoimgview,
         page: () => PhotoImageView(),
         binding: PhotoImageViewBinding()),
+    GetPage(
+        name: AppRoutes.VoiceCall,
+        page: () => VoiceCallPage(),
+        binding: VoiceCallBinding()),
   ];
 }

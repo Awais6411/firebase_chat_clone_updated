@@ -2,6 +2,7 @@ import 'package:firebase_chat_clone/common/values/colors.dart';
 import 'package:firebase_chat_clone/common/values/shadows.dart';
 import 'package:firebase_chat_clone/common/widgets/button.dart';
 import 'package:firebase_chat_clone/pages/application/controller.dart';
+import 'package:firebase_chat_clone/pages/authentication/finger_print.dart';
 import 'package:firebase_chat_clone/pages/contact/index.dart';
 import 'package:firebase_chat_clone/pages/message/view.dart';
 import 'package:firebase_chat_clone/pages/profile/index.dart';
@@ -23,7 +24,7 @@ class ApplicationPage extends GetView<ApplicationController> {
       physics: NeverScrollableScrollPhysics(),
       controller: controller.pageController,
       onPageChanged: controller.handlePageChanged,
-      children: const [MessagePage(), ContactPage(), ProfilePage()],
+      children:  [AuthApp(), ContactPage(), ProfilePage()],
     );
   }
 

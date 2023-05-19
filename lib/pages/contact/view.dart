@@ -4,6 +4,7 @@ import 'package:firebase_chat_clone/common/widgets/app.dart';
 import 'package:firebase_chat_clone/common/widgets/button.dart';
 import 'package:firebase_chat_clone/pages/contact/controller.dart';
 import 'package:firebase_chat_clone/pages/contact/widgets/contact_list.dart';
+import 'package:firebase_chat_clone/pages/message/voicemessage/tasks/tips2/userList.dart';
 import 'package:firebase_chat_clone/pages/sign_in/index.dart';
 import 'package:firebase_chat_clone/pages/welcome/controller.dart';
 import 'package:flutter/cupertino.dart';
@@ -31,8 +32,7 @@ class ContactPage extends GetView<ContactController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: _buildAppBar(),
-      body: ContactList(),
-    );
+        appBar: _buildAppBar(), body: UserList(tips: "4") //ContactList(),
+        );
   }
 }

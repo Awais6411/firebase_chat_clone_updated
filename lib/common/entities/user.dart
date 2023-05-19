@@ -20,9 +20,9 @@ class UserData {
   });
 
   factory UserData.fromFirestore(
-      DocumentSnapshot<Map<String, dynamic>> snapshot,
-      SnapshotOptions? options,
-      ) {
+    DocumentSnapshot<Map<String, dynamic>> snapshot,
+    SnapshotOptions? options,
+  ) {
     final data = snapshot.data();
     return UserData(
       id: data?['id'],
@@ -84,7 +84,6 @@ class MeListItem {
   String? explain;
   String? route;
 
-
   MeListItem({
     this.name,
     this.icon,
@@ -92,8 +91,7 @@ class MeListItem {
     this.route,
   });
 
-  factory MeListItem.fromJson(Map<String, dynamic> json) =>
-      MeListItem(
+  factory MeListItem.fromJson(Map<String, dynamic> json) => MeListItem(
         name: json["name"],
         icon: json["icon"],
         explain: json["explain"],

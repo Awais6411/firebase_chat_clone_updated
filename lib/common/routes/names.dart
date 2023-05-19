@@ -15,4 +15,6 @@ class AppRoutes {
 
   static const Photoimgview = '/photoimgview';
 
+  static const VoiceCall = '/voicecall';
+  static const VideoCall = '/videocall';
 }

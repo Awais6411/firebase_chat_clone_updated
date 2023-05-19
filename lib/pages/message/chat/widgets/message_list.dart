@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:firebase_chat_clone/common/utils/date.dart';
 import 'package:firebase_chat_clone/common/values/colors.dart';
 import 'package:firebase_chat_clone/pages/message/controller.dart';
+import 'package:firebase_chat_clone/pages/message/voicemessage/tasks/tips2/chat-details.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
@@ -41,6 +42,7 @@ class MessageList extends GetView<MessageController> {
             "to_name": to_name,
             "to_avatar": to_avatar
           });
+          // Get.to(() => ChatDetailPage(data: item));
         },
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -65,8 +67,6 @@ class MessageList extends GetView<MessageController> {
                   ),
                   errorWidget: (context, url, error) => const Image(
                       image: AssetImage("assets/images/feature-1.png")),
-
-
                 ),
               ),
             ),
@@ -157,7 +157,7 @@ class MessageList extends GetView<MessageController> {
                 sliver: SliverList(
                     delegate: SliverChildBuilderDelegate((context, index) {
                   var item = controller.state.msgList[index];
-                 return messageListItem(item);
+                  return messageListItem(item);
                   //print(item);
                 }, childCount: controller.state.msgList.length)),
               )

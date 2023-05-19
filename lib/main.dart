@@ -1,12 +1,17 @@
-import 'package:firebase_chat_clone/common/routes/pages.dart';
 import 'package:firebase_chat_clone/common/services/services.dart';
 import 'package:firebase_chat_clone/common/store/config.dart';
 import 'package:firebase_chat_clone/common/store/store.dart';
+import 'package:firebase_chat_clone/pages/message/groupchat/Authenticate/Autheticate.dart';
+import 'package:firebase_chat_clone/pages/message/voicemessage/tasks/home.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:get/get.dart';
+import 'common/routes/pages.dart';
+import 'common/utils/FirebaseMassagingHandler.dart';
 import 'firebase_options.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -17,6 +22,25 @@ Future<void> main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
   runApp(const MyApp());
+
+  // firebaseChatInit().whenComplete(() => FirebaseMassagingHandler.config());
+
+  firebaseChatInit().then((value) => FirebaseMassagingHandler.config());
+}
+
+Future firebaseChatInit() async {
+  FirebaseMessaging.onBackgroundMessage(
+      FirebaseMassagingHandler.firebaseMessagingBackground);
+  if (GetPlatform.isAndroid) {
+    FirebaseMassagingHandler.flutterLocalNotificationsPlugin
+        .resolvePlatformSpecificImplementation<
+            AndroidFlutterLocalNotificationsPlugin>()!
+        .createNotificationChannel(FirebaseMassagingHandler.channel_call);
+    FirebaseMassagingHandler.flutterLocalNotificationsPlugin
+        .resolvePlatformSpecificImplementation<
+            AndroidFlutterLocalNotificationsPlugin>()!
+        .createNotificationChannel(FirebaseMassagingHandler.channel_message);
+  }
 }
 
 class MyApp extends StatelessWidget {
@@ -34,6 +58,7 @@ class MyApp extends StatelessWidget {
               ),
               initialRoute: AppPages.INITIAL,
               getPages: AppPages.routes,
+              // home: Authenticate(),
             ));
   }
 }

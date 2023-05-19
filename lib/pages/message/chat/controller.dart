@@ -32,6 +32,21 @@ class ChatController extends GetxController {
   FocusNode contentNode = FocusNode();
   final user_id = UserStore.to.token;
 
+  void goMore() {
+    state.more_status.value = state.more_status.value ? false : true;
+  }
+
+  void audioCall() {
+    state.more_status.value = false;
+    Get.toNamed(AppRoutes.VoiceCall, parameters: {
+      "to_token": state.to_token.value,
+      "to_name": state.to_name.value,
+      "to_avatar": state.to_avatar.value,
+      "call_role": "anchor",
+      "doc_id": doc_id
+    });
+  }
+
   Future imgFromGallery() async {
     final pickedFile = await _picker.pickImage(source: ImageSource.gallery);
 
@@ -105,11 +120,15 @@ class ChatController extends GetxController {
     state.to_uid.value = data["to_uid"] ?? "";
     state.to_name.value = data["to_name"] ?? "";
     state.to_avatar.value = data["to_avatar"] ?? "";
+    state.to_online.value = data['to_online'] ?? "1";
   }
 
   sendMessage() async {
     String sendContent = textController.text;
-
+    if (sendContent.isEmpty) {
+      toastInfo(msg: "Please write something...");
+      return;
+    }
     final content = Msgcontent(
         uid: user_id,
         content: sendContent,
